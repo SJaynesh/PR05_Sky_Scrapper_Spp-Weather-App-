@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
+import '../../Controllers/Connectivity_Provider.dart';
 import '../../Models/weather_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,10 +21,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // getWeather = APIHelper.apiHelper.fetchSingleWeather();
-    Future.delayed(Duration.zero,(){
-      Provider.of<WeatherGet_Provider>(context,listen: false).searchWeather("Bengaluru");
+    Future.delayed(Duration.zero, () {
+      Provider.of<WeatherGet_Provider>(context, listen: false)
+          .searchWeather("Bengaluru");
     });
-      }
+    Provider.of<Connectivity_Provider>(context, listen: false)
+        .ChackInternetConnectivity();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +91,7 @@ class _HomePageState extends State<HomePage> {
           ]),
           onTap: (i) {
             activeIndex = i;
-            if(i==1){
+            if (i == 1) {
               Navigator.of(context).pushNamed("SearchPage");
             }
             print("***********************");
@@ -96,233 +100,264 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         backgroundColor: Color(0xff020b31),
-        body: FutureBuilder(
-            future: Provider.of<WeatherGet_Provider>(context).w1.getWeather,
-            builder: (context, snapShot) {
-              if (snapShot.hasError) {
-                return Center(
-                  child: Text("ERROR : ${snapShot.error}"),
-                );
-              } else if (snapShot.hasData) {
-                Weather? data = snapShot.data;
-                return (data == null)
-                    ? Center(
-                        child: Text("No Data Available"),
-                      )
-                    : Stack(
-                        children: [
-                          Container(
-                            height: h,
-                            width: w,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(BgimagePath + "bg.png"),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Column(
+        body: (Provider.of<Connectivity_Provider>(context).c1.status ==
+                "Waiting")
+            ? Container(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(ConditionimagePath + "internet.gif"),
+                  ],
+                ),
+              )
+            : FutureBuilder(
+                future: Provider.of<WeatherGet_Provider>(context).w1.getWeather,
+                builder: (context, snapShot) {
+                  if (snapShot.hasError) {
+                    return Center(
+                      child: Text("ERROR : ${snapShot.error}"),
+                    );
+                  } else if (snapShot.hasData) {
+                    Weather? data = snapShot.data;
+                    return (data == null)
+                        ? Center(
+                            child: Text("No Data Available"),
+                          )
+                        : Stack(
                             children: [
-                              SizedBox(
-                                height: h * 0.1,
-                              ),
-                              Text(
-                                "${data.name}",
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: h * 0.035,
-                                    fontWeight: FontWeight.w500,
+                              Container(
+                                height: h,
+                                width: w,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(BgimagePath + "bg.png"),
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
-                              Text(
-                                "                ${data.country}",
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: h * 0.015,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              Column(
                                 children: [
-                                  GradientText(
-                                    "${data.temp_c}",
+                                  SizedBox(
+                                    height: h * 0.1,
+                                  ),
+                                  Text(
+                                    "${data.name}",
                                     style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
-                                        fontSize: h * 0.08,
-                                        fontWeight: FontWeight.w300,
+                                        color: Colors.white,
+                                        fontSize: h * 0.035,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    colors: [
-                                      Colors.white,
-                                      Colors.white70,
-                                      Colors.white10,
+                                  ),
+                                  Text(
+                                    "                ${data.country}",
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: h * 0.015,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      GradientText(
+                                        "${data.temp_c}",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: TextStyle(
+                                            fontSize: h * 0.08,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                        colors: [
+                                          Colors.white,
+                                          Colors.white70,
+                                          Colors.white10,
+                                        ],
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(3, -30),
+                                        child: Text(
+                                          "°",
+                                          style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                              color: Colors.white38,
+                                              fontSize: h * 0.05,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
-                                  Transform.translate(
-                                    offset: Offset(3, -30),
-                                    child: Text(
-                                      "°",
-                                      style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
-                                          color: Colors.white38,
-                                          fontSize: h * 0.05,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                "${data.ConditionText}",
-                                style: TextStyle(
-                                  color: Colors.white54,
-                                  fontSize: h * 0.025,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
                                   Text(
-                                    "H:  ${data.lat}",
-                                    style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                        fontSize: h * 0.018,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    "${data.ConditionText}",
+                                    style: TextStyle(
+                                      color: Colors.white54,
+                                      fontSize: h * 0.025,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Transform.translate(
-                                    offset: Offset(1, -5),
-                                    child: Text(
-                                      "o",
-                                      style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
-                                          fontSize: h * 0.01,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "H:  ${data.lat}",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: TextStyle(
+                                            fontSize: h * 0.018,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                      Transform.translate(
+                                        offset: Offset(1, -5),
+                                        child: Text(
+                                          "o",
+                                          style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                              fontSize: h * 0.01,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: w * 0.02,
+                                      ),
+                                      Text(
+                                        "L:  ${data.lon}",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: TextStyle(
+                                            fontSize: h * 0.018,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(1, -5),
+                                        child: Text(
+                                          "o",
+                                          style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                              fontSize: h * 0.01,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(
-                                    width: w * 0.02,
+                                    height: h * 0.05,
                                   ),
-                                  Text(
-                                    "L:  ${data.lon}",
-                                    style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                        fontSize: h * 0.018,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  Transform.translate(
-                                    offset: Offset(1, -5),
-                                    child: Text(
-                                      "o",
-                                      style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
-                                          fontSize: h * 0.01,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
+                                  Container(
+                                    height: h * 0.44,
+                                    width: w,
+                                    child: (data.ConditionText == "Sunny")
+                                        ? Transform.scale(
+                                            scaleX: 1.2,
+                                            scaleY: 1.2,
+                                            child: Image.asset(
+                                              ConditionimagePath + "sunny.png",
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )
+                                        : (data.ConditionText == "Clear")
+                                            ? Transform.scale(
+                                                scaleX: 1.2,
+                                                scaleY: 1.25,
+                                                child: Image.asset(
+                                                  ConditionimagePath +
+                                                      "nigth.png",
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              )
+                                            : (data.ConditionText ==
+                                                    "Partly cloudy")
+                                                ? Transform.scale(
+                                                    scale: 1,
+                                                    child: Image.asset(
+                                                      ConditionimagePath +
+                                                          "cloudy.png",
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  )
+                                                : (data.ConditionText ==
+                                                        "Thundery outbreaks possible")
+                                                    ? Transform.scale(
+                                                        scale: 1,
+                                                        child: Image.asset(
+                                                          ConditionimagePath +
+                                                              "thund.png",
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      )
+                                                    : (data.ConditionText ==
+                                                            "Overcast")
+                                                        ? Transform.scale(
+                                                            scale: 1,
+                                                            child: Image.asset(
+                                                              ConditionimagePath +
+                                                                  "overcast.png",
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          )
+                                                        : (data.ConditionText ==
+                                                                "Moderate or heavy snow showers")
+                                                            ? Transform.scale(
+                                                                scale: 1,
+                                                                child:
+                                                                    Image.asset(
+                                                                  ConditionimagePath +
+                                                                      "snow.png",
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                ),
+                                                              )
+                                                            : (data.ConditionText ==
+                                                                    "Patchy light drizzle")
+                                                                ? Transform
+                                                                    .scale(
+                                                                    scaleX: 1.2,
+                                                                    scaleY: 1.5,
+                                                                    child: Image
+                                                                        .asset(
+                                                                      ConditionimagePath +
+                                                                          "drizzle.png",
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
+                                                                  )
+                                                                : Transform
+                                                                    .scale(
+                                                                    scaleX: 1.2,
+                                                                    scaleY: 1.6,
+                                                                    child: Image
+                                                                        .asset(
+                                                                      ConditionimagePath +
+                                                                          "normal.png",
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
+                                                                  ),
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                height: h * 0.05,
-                              ),
-                              Container(
-                                height: h * 0.44,
-                                width: w,
-                                child:(data.ConditionText == "Sunny")
-                                    ? Transform.scale(
-                                  scaleX: 1.2,
-                                  scaleY: 1.2,
-                                  child: Image.asset(
-                                    ConditionimagePath + "sunny.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                                    : (data.ConditionText == "Clear")
-                                    ? Transform.scale(
-                                        scaleX: 1.2,
-                                        scaleY: 1.25,
-                                        child: Image.asset(
-                                          ConditionimagePath + "nigth.png",
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )
-                                    : (data.ConditionText == "Partly cloudy")
-                                    ? Transform.scale(
-                                  scale: 1,
-                                  child: Image.asset(
-                                    ConditionimagePath + "cloudy.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                                    : (data.ConditionText == "Thundery outbreaks possible")
-                                    ? Transform.scale(
-                                  scale: 1,
-                                  child: Image.asset(
-                                    ConditionimagePath + "thund.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                                    : (data.ConditionText == "Overcast")
-                                    ? Transform.scale(
-                                  scale: 1,
-                                  child: Image.asset(
-                                    ConditionimagePath + "overcast.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                                    : (data.ConditionText == "Moderate or heavy snow showers")
-                                    ? Transform.scale(
-                                  scale: 1,
-                                  child: Image.asset(
-                                    ConditionimagePath + "snow.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                                    : (data.ConditionText == "Patchy light drizzle")
-                                    ? Transform.scale(
-                                  scaleX: 1.2,
-                                  scaleY: 1.5,
-                                  child: Image.asset(
-                                    ConditionimagePath + "drizzle.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                                    : Transform.scale(
-                                  scaleX: 1.2,
-                                  scaleY: 1.6,
-                                  child: Image.asset(
-                                    ConditionimagePath + "normal.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
                             ],
-                          ),
-                        ],
-                      );
-              }
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }),
+                          );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }),
       ),
     );
   }

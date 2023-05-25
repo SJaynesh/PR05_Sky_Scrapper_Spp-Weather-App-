@@ -43,7 +43,7 @@ class _SplachScreenState extends State<SplachScreen> {
           ],
         ),
       ),
-      backgroundColor: Color(0xff475082),
+      backgroundColor: Color(0xff020b31),
     );
   }
 }

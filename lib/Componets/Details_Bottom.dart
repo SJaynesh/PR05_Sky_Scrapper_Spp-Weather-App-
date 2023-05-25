@@ -96,10 +96,10 @@ class _Details_WeatherState extends State<Details_Weather> {
                                     color: (data.hour[DateTime.now().hour]
                                                     ['time']
                                                 .toString()
-                                                .split("25")[1] ==
+                                                .split("${DateTime.now().day}")[1] ==
                                             data.hour[i]['time']
                                                 .toString()
-                                                .split("25")[1])
+                                                .split("${DateTime.now().day}")[1])
                                         ? Colors.blue.shade900
                                         : Color(0xff262A56),
                                     borderRadius: BorderRadius.circular(40),
@@ -118,10 +118,10 @@ class _Details_WeatherState extends State<Details_Weather> {
                                     children: [
                                       (data.hour[DateTime.now().hour]['time']
                                                   .toString()
-                                                  .split("25")[1] ==
+                                                  .split("${DateTime.now().day}")[1] ==
                                               data.hour[i]['time']
                                                   .toString()
-                                                  .split("25")[1]) // jo pela
+                                                  .split("${DateTime.now().day}")[1]) // jo pela
                                           ? Text(
                                               "Now",
                                               style: GoogleFonts.poppins(
@@ -134,7 +134,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                           : Text(
                                               data.hour[i]['time']
                                                   .toString()
-                                                  .split("25")[1],
+                                                  .split("${DateTime.now().day}")[1],
                                               style: GoogleFonts.poppins(
                                                 textStyle: TextStyle(
                                                     color: Colors.white,
