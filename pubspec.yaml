@@ -50,6 +50,7 @@ dev_dependencies:
   google_fonts:
   simple_gradient_text:
   animated_bottom_navigation_bar: ^1.2.0
+  provider:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

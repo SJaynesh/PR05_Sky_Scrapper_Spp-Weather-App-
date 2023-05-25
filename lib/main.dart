@@ -13,21 +13,31 @@
 // https://api.weatherapi.com/v1/current.json?key=7c45c33977d64f5a89783251232305&q=Gulmarg.&aqi=no
 // Patchy light drizzle
 
+
+
 import 'package:flutter/material.dart';
 import 'package:sky_scrapper_code/Componets/Details_Bottom.dart';
+import 'package:sky_scrapper_code/Controllers/WeatherGet_Provider.dart';
 import 'package:sky_scrapper_code/View/Screens/HomePage.dart';
+import 'package:sky_scrapper_code/View/Screens/SearchPage.dart';
 import 'package:sky_scrapper_code/View/Screens/SplachScreen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
 
   runApp(
-    MaterialApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context)=> WeatherGet_Provider()),
+      ],
+      builder: (context,_)=>  MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
         "/" : (context) => SplachScreen(),
         "HomePage" : (context) => HomePage(),
         "DetailWeather" : (context) => Details_Weather(),
+        "SearchPage" : (context) => SearchPage(),
       },
-    ),
+    ),),
   );
 }

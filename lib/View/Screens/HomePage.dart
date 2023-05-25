@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sky_scrapper_code/Componets/Details_Bottom.dart';
-import 'package:sky_scrapper_code/Models/api_helper.dart';
+import 'package:sky_scrapper_code/Controllers/WeatherGet_Provider.dart';
 import 'package:sky_scrapper_code/utills/all_Atributes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-
+import 'package:provider/provider.dart';
 import '../../Models/weather_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,13 +16,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<Weather?> getWeather;
-
   @override
   void initState() {
     super.initState();
-    getWeather = APIHelper.apiHelper.fetchSingleWeather();
-  }
+    // getWeather = APIHelper.apiHelper.fetchSingleWeather();
+    Future.delayed(Duration.zero,(){
+      Provider.of<WeatherGet_Provider>(context,listen: false).searchWeather("Bengaluru");
+    });
+      }
 
   @override
   Widget build(BuildContext context) {
@@ -37,31 +38,26 @@ class _HomePageState extends State<HomePage> {
           child: FloatingActionButton(
             onPressed: () {
               showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.white30,
-                  shape:  RoundedRectangleBorder(
-
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(60),
-                      )
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Color(0xff472c7f).withOpacity(0.4),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(60),
+                )),
+                builder: (context) => DraggableScrollableSheet(
+                  expand: false,
+                  initialChildSize: 0.4,
+                  maxChildSize: 0.9,
+                  minChildSize: 0.32,
+                  builder: (context, scrollController) => SingleChildScrollView(
+                    controller: scrollController,
+                    child: Details_Weather(),
                   ),
-                  builder: (context) =>
-                      DraggableScrollableSheet(
-                        expand: false,
-                          initialChildSize: 0.4,
-                          maxChildSize: 0.9,
-                          minChildSize: 0.32,
-                          builder: (context,scrollController) =>
-                              SingleChildScrollView(
-                                controller: scrollController,
-                                child: Details_Weather(),
-                              ),
-                      ),
+                ),
               );
             },
             backgroundColor: Color(0xffbfc3d0),
-
             child: Text(
               "➕",
               style: TextStyle(fontSize: h * 0.02),
@@ -91,6 +87,9 @@ class _HomePageState extends State<HomePage> {
           ]),
           onTap: (i) {
             activeIndex = i;
+            if(i==1){
+              Navigator.of(context).pushNamed("SearchPage");
+            }
             print("***********************");
             print(activeIndex);
             print("***********************");
@@ -98,7 +97,7 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: Color(0xff020b31),
         body: FutureBuilder(
-            future: APIHelper.apiHelper.fetchSingleWeather(),
+            future: Provider.of<WeatherGet_Provider>(context).w1.getWeather,
             builder: (context, snapShot) {
               if (snapShot.hasError) {
                 return Center(
@@ -137,6 +136,16 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
+                              Text(
+                                "                ${data.country}",
+                                style: GoogleFonts.poppins(
+                                  textStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: h * 0.015,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -155,9 +164,9 @@ class _HomePageState extends State<HomePage> {
                                     ],
                                   ),
                                   Transform.translate(
-                                    offset: Offset(5, -30),
+                                    offset: Offset(3, -30),
                                     child: Text(
-                                      "o",
+                                      "°",
                                       style: GoogleFonts.poppins(
                                         textStyle: TextStyle(
                                           color: Colors.white38,
@@ -231,8 +240,82 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
+                              SizedBox(
+                                height: h * 0.05,
+                              ),
+                              Container(
+                                height: h * 0.44,
+                                width: w,
+                                child:(data.ConditionText == "Sunny")
+                                    ? Transform.scale(
+                                  scaleX: 1.2,
+                                  scaleY: 1.2,
+                                  child: Image.asset(
+                                    ConditionimagePath + "sunny.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                                    : (data.ConditionText == "Clear")
+                                    ? Transform.scale(
+                                        scaleX: 1.2,
+                                        scaleY: 1.25,
+                                        child: Image.asset(
+                                          ConditionimagePath + "nigth.png",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : (data.ConditionText == "Partly cloudy")
+                                    ? Transform.scale(
+                                  scale: 1,
+                                  child: Image.asset(
+                                    ConditionimagePath + "cloudy.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                                    : (data.ConditionText == "Thundery outbreaks possible")
+                                    ? Transform.scale(
+                                  scale: 1,
+                                  child: Image.asset(
+                                    ConditionimagePath + "thund.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                                    : (data.ConditionText == "Overcast")
+                                    ? Transform.scale(
+                                  scale: 1,
+                                  child: Image.asset(
+                                    ConditionimagePath + "overcast.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                                    : (data.ConditionText == "Moderate or heavy snow showers")
+                                    ? Transform.scale(
+                                  scale: 1,
+                                  child: Image.asset(
+                                    ConditionimagePath + "snow.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                                    : (data.ConditionText == "Patchy light drizzle")
+                                    ? Transform.scale(
+                                  scaleX: 1.2,
+                                  scaleY: 1.5,
+                                  child: Image.asset(
+                                    ConditionimagePath + "drizzle.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                                    : Transform.scale(
+                                  scaleX: 1.2,
+                                  scaleY: 1.6,
+                                  child: Image.asset(
+                                    ConditionimagePath + "normal.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
                             ],
-                          )
+                          ),
                         ],
                       );
               }

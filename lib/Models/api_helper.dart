@@ -8,9 +8,9 @@ class APIHelper {
 
   static final APIHelper apiHelper = APIHelper._();
 
-  Future<Weather?> fetchSingleWeather() async {
+  Future<Weather?> fetchSingleWeather(String city) async {
     String baseUrl = "https://api.weatherapi.com/v1/forecast.json?key=7c45c33977d64f5a89783251232305&q=";
-    String endPoint = "surat&aqi=no";
+    String endPoint = "$city&aqi=no";
 
     String api = baseUrl + endPoint;
 

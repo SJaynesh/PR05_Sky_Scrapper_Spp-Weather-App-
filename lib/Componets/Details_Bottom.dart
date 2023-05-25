@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../Models/api_helper.dart';
+import '../Controllers/WeatherGet_Provider.dart';
+import 'package:provider/provider.dart';
 import '../Models/weather_model.dart';
 
 class Details_Weather extends StatefulWidget {
@@ -18,7 +19,7 @@ class _Details_WeatherState extends State<Details_Weather> {
     double w = s.width;
 
     return FutureBuilder(
-        future: APIHelper.apiHelper.fetchSingleWeather(),
+        future: Provider.of<WeatherGet_Provider>(context).w1.getWeather,
         builder: (context, snapShot) {
           if (snapShot.hasError) {
             return Center(
@@ -420,7 +421,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                         Text("sunset : ${data.sunset}", style: GoogleFonts.poppins(
                                           textStyle: TextStyle(
                                             color: Colors.white,
-                                            fontSize: h * 0.02,
+                                            fontSize: h * 0.018,
                                           ),
                                         ),
                                         ),
