@@ -7,6 +7,11 @@ class Weather {
   double temp_c;
   int is_day;
   String ConditionText;
+  double wind_mph;
+  double precip_mm;
+  double uv;
+  String sunrise;
+  String sunset;
   List hour;
 
   Weather({
@@ -18,6 +23,11 @@ class Weather {
     required this.temp_c,
     required this.is_day,
     required this.ConditionText,
+    required this.wind_mph,
+    required this.precip_mm,
+    required this.uv,
+    required this.sunrise,
+    required this.sunset,
     required this.hour,
   });
 
@@ -31,6 +41,11 @@ class Weather {
       temp_c: data['current']['temp_c'],
       is_day: data['current']['is_day'],
       ConditionText: data['current']['condition']['text'],
+      wind_mph: data['current']['wind_mph'],
+      precip_mm: data['current']['precip_mm'],
+      uv: data['current']['uv'],
+      sunrise: data['forecast']['forecastday'][0]['astro']['sunrise'],
+      sunset: data['forecast']['forecastday'][0]['astro']['sunset'],
       hour: data['forecast']['forecastday'][0]['hour'],
     );
   }

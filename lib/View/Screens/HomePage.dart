@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         bottomNavigationBar: AnimatedBottomNavigationBar(
           icons: [
-            Icons.swipe_down_alt_outlined,
+            Icons.swipe_up_alt_outlined,
             Icons.list,
           ],
           iconSize: h * 0.045,
