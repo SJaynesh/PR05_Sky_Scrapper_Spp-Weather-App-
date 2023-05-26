@@ -255,9 +255,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: h * 0.05,
-                                  ),
+
                                   Container(
                                     height: h * 0.44,
                                     width: w,
@@ -272,8 +270,8 @@ class _HomePageState extends State<HomePage> {
                                           )
                                         : (data.ConditionText == "Clear")
                                             ? Transform.scale(
-                                                scaleX: 1.2,
-                                                scaleY: 1.25,
+                                                scaleX: 1,
+                                                scaleY: 1,
                                                 child: Image.asset(
                                                   ConditionimagePath +
                                                       "nigth.png",

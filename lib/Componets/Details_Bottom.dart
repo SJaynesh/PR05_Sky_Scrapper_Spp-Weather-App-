@@ -54,7 +54,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                               "Hourly Forecast",
                               style: GoogleFonts.kanit(
                                 textStyle: TextStyle(
-                                  fontSize: h * 0.023,
+                                  fontSize: h * 0.02,
                                   color: Color(0xff9697ac),
                                 ),
                               ),
@@ -63,7 +63,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                               "Weekly Forecast",
                               style: GoogleFonts.kanit(
                                 textStyle: TextStyle(
-                                  fontSize: h * 0.023,
+                                  fontSize: h * 0.02,
                                   color: Color(0xff9697ac),
                                 ),
                               ),
@@ -138,7 +138,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                               style: GoogleFonts.poppins(
                                                 textStyle: TextStyle(
                                                     color: Colors.white,
-                                                    fontSize: h * 0.022),
+                                                    fontSize: h * 0.02),
                                               ),
                                             ),
                                       Image.network(
@@ -152,7 +152,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                             style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: h * 0.025),
+                                                  fontSize: h * 0.022),
                                             ),
                                           ),
                                           Transform.translate(
@@ -176,7 +176,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                       Padding(
                         padding: const EdgeInsets.all(20),
                         child: Container(
-                          height: h * 0.21,
+                          height: h * 0.22,
                           width: w,
                           decoration: BoxDecoration(
                             color: Color(0xff30225f),
@@ -249,7 +249,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(16),
+                                padding: const EdgeInsets.only(left: 16,right: 16,top: 10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -258,7 +258,8 @@ class _Details_WeatherState extends State<Details_Weather> {
                                       "See more",
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: h * 0.025),
+                                          fontSize: h * 0.02,
+                                      ),
                                     ),
                                     Icon(
                                       Icons.arrow_forward_ios_rounded,
@@ -367,7 +368,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                               ),
                             ),
                             SizedBox(
-                              width: w * 0.02,
+                              width: w * 0.01,
                             ),
                             Container(
                               height: h * 0.23,
@@ -407,7 +408,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                     style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                         color: Colors.white,
-                                        fontSize: h * 0.04,
+                                        fontSize: h * 0.03,
                                       ),
                                     ),
                                   ),
@@ -421,7 +422,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                         Text("sunset : ${data.sunset}", style: GoogleFonts.poppins(
                                           textStyle: TextStyle(
                                             color: Colors.white,
-                                            fontSize: h * 0.018,
+                                            fontSize: h * 0.015,
                                           ),
                                         ),
                                         ),
@@ -472,7 +473,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                     ),
                                   ),
                                   Container(
-                                    height: h * 0.2,
+                                    height: h * 0.195,
                                     width: w * 0.35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
@@ -494,7 +495,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 25),
+                                          padding: const EdgeInsets.only(top: 15),
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
@@ -527,7 +528,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 15),
+                                          padding: const EdgeInsets.only(top: 10),
                                           child: Text("S",style:
                                           TextStyle(
                                             color: Colors.white,
@@ -543,7 +544,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                               ),
                             ),
                             SizedBox(
-                              width: w * 0.02,
+                              width: w * 0.01,
                             ),
                             Container(
                               height: h * 0.25,
@@ -583,7 +584,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                     style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                         color: Colors.white,
-                                        fontSize: h * 0.04,
+                                        fontSize: h * 0.035,
                                       ),
                                     ),
                                   ),
@@ -592,7 +593,7 @@ class _Details_WeatherState extends State<Details_Weather> {
                                     style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                         color: Colors.white,
-                                        fontSize: h * 0.025,
+                                        fontSize: h * 0.022,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
