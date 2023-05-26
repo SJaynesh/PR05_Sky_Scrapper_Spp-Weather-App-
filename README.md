@@ -101,6 +101,8 @@ Detail: Each city or state's weather information is presented on a dedicated det
  
  <img align = "left"  src = "https://github.com/SJaynesh/PR05_sky_scrapper_app/assets/115562979/7237feab-544c-4353-aaf4-48e377657da7.png" width=22% height=35% >
  
- <img  src = "https://github.com/SJaynesh/PR05_sky_scrapper_app/assets/115562979/635b51cf-60e6-4528-936d-250e2f363f38.png" width=22% height=35% >
+ <img align = "left" src = "https://github.com/SJaynesh/PR05_sky_scrapper_app/assets/115562979/635b51cf-60e6-4528-936d-250e2f363f38.png" width=22% height=35% >
+ 
+  <img   src = "https://github.com/SJaynesh/PR05_sky_scrapper_app/assets/115562979/c8bff8fd-0168-4076-a790-9a0ccec8c327.png" width=22% height=35% >
   </P>
   
