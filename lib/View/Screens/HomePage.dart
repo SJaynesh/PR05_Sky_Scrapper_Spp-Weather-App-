@@ -323,7 +323,7 @@ class _HomePageState extends State<HomePage> {
                                                                 ),
                                                               )
                                                             : (data.ConditionText ==
-                                                                    "Patchy light drizzle")
+                                                                    "Light rain")
                                                                 ? Transform
                                                                     .scale(
                                                                     scaleX: 1.2,
