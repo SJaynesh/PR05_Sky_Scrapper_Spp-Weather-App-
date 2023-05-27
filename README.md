@@ -64,6 +64,9 @@ Detail: Each city or state's weather information is presented on a dedicated det
 ### --: Video :--
 
 
+https://github.com/SJaynesh/PR05_sky_scrapper_app/assets/115562979/81cec4b7-5d31-4075-a797-1182bc4a9bc7
+
+
 ### --: Photos :--
 
 <p>
